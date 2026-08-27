@@ -1,90 +1,248 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生日惊喜</title>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            min-height:100vh;
-            background:#111420;
-            color:#fff;
-            font-family:system-ui;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            overflow:hidden;
-        }
-        h1{
-            font-size:2.8rem;
-            margin-bottom:24px;
-            background:linear-gradient(90deg,#ffd770,#ff7898);
-            -webkit-background-clip:text;
-            color:transparent;
-        }
-        .msg{
-            font-size:1.2rem;
-            margin-bottom:30px;
-            opacity:0.9;
-        }
-        button{
-            padding:12px 28px;
-            font-size:1rem;
-            border:none;
-            border-radius:999px;
-            background:#ff7898;
-            color:white;
-            cursor:pointer;
-        }
-        .firework{
-            position:fixed;
-            width:6px;height:6px;
-            border-radius:50%;
-        }
-    </style>
-</head>
-<body>
-    <h1>生日惊喜</h1>
-    <div class="msg">愿岁岁平安，万事欢喜✨</div>
-    <button id="btn">开启礼花</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日惊喜 🎂</title>
 
-    <script>
-        const btn=document.getElementById('btn');
-        function fire(x,y){
-            for(let i=0;i<40;i++){
-                const dot=document.createElement('div');
-                dot.className='firework';
-                dot.style.left=x+'px';
-                dot.style.top=y+'px';
-                dot.style.background=['#ffd770','#ff7898','#70d8ff','#98ff78'][Math.floor(Math.random()*4)];
-                document.body.appendChild(dot);
-                const angle=Math.PI*2*Math.random();
-                const speed=60+Math.random()*100;
-                const vx=Math.cos(angle)*speed;
-                const vy=Math.sin(angle)*speed;
-                let px=x,py=y;
-                function step(){
-                    px+=vx*0.02;
-                    py+=vy*0.02;
-                    dot.style.left=px+'px';
-                    dot.style.top=py+'px';
-                    dot.style.opacity-=0.025;
-                    if(dot.style.opacity>0){
-                        requestAnimationFrame(step);
-                    }else dot.remove();
-                }
-                requestAnimationFrame(step);
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 30%, #29304d 0%, #111420 55%, #080a10 100%);
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    padding: 30px;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ffd770, #ff7898);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.msg {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: .9;
+}
+
+button {
+    padding: 14px 32px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ff7898, #ff5f8f);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 120, 152, .35);
+    transition: transform .2s;
+}
+
+button:active {
+    transform: scale(.92);
+}
+
+.firework {
+    position: fixed;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 5;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.flash {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+    animation: flash .15s ease-out;
+}
+
+@keyframes flash {
+    0% { opacity: .25; }
+    100% { opacity: 0; }
+}
+
+.hidden {
+    display: none;
+}
+
+#love {
+    margin-top: 25px;
+    font-size: 1.5rem;
+    animation: appear .8s ease-out;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎂 生日快乐！</h1>
+
+    <div class="msg">
+        愿岁岁平安，万事欢喜 ✨
+    </div>
+
+    <button id="btn">
+        🎁 开启生日惊喜
+    </button>
+
+    <div id="love" class="hidden">
+        ✨ 新的一岁，也要一直开心呀！ ✨
+    </div>
+
+</div>
+
+<script>
+
+const btn = document.getElementById("btn");
+const love = document.getElementById("love");
+
+const colors = [
+    "#ffd770",
+    "#ff7898",
+    "#70d8ff",
+    "#98ff78",
+    "#d98cff"
+];
+
+function firework(x, y) {
+
+    const particles = 70;
+
+    for (let i = 0; i < particles; i++) {
+
+        const dot = document.createElement("div");
+
+        dot.className = "firework";
+
+        const color =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        dot.style.background = color;
+        dot.style.color = color;
+
+        dot.style.left = x + "px";
+        dot.style.top = y + "px";
+
+        document.body.appendChild(dot);
+
+        const angle =
+            Math.random() * Math.PI * 2;
+
+        const speed =
+            2 + Math.random() * 5;
+
+        let px = x;
+        let py = y;
+
+        let vx = Math.cos(angle) * speed;
+        let vy = Math.sin(angle) * speed;
+
+        let opacity = 1;
+
+        function animate() {
+
+            px += vx;
+            py += vy;
+
+            vy += 0.04;
+
+            vx *= 0.99;
+            vy *= 0.99;
+
+            opacity -= 0.015;
+
+            dot.style.left = px + "px";
+            dot.style.top = py + "px";
+            dot.style.opacity = opacity;
+
+            if (opacity > 0) {
+                requestAnimationFrame(animate);
+            } else {
+                dot.remove();
             }
         }
-        btn.onclick=()=>{
-            for(let i=0;i<6;i++){
-                setTimeout(()=>{
-                    fire(window.innerWidth*Math.random(),window.innerHeight*Math.random());
-                },i*250);
-            }
-        }
-    </script>
+
+        requestAnimationFrame(animate);
+    }
+}
+
+function launch() {
+
+    const flash = document.createElement("div");
+
+    flash.className = "flash";
+
+    document.body.appendChild(flash);
+
+    setTimeout(() => {
+        flash.remove();
+    }, 200);
+
+    const x =
+        window.innerWidth * (.2 + Math.random() * .6);
+
+    const y =
+        window.innerHeight * (.15 + Math.random() * .45);
+
+    firework(x, y);
+}
+
+btn.addEventListener("click", () => {
+
+    btn.textContent = "🎉 生日快乐！";
+
+    love.classList.remove("hidden");
+
+    for (let i = 0; i < 12; i++) {
+
+        setTimeout(() => {
+            launch();
+        }, i * 350);
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
