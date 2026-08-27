@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>生日快乐 🎂</title>
+<title>妈妈生日快乐 🎂</title>
 
 <style>
 * {
@@ -42,21 +42,29 @@ body {
 }
 
 @keyframes twinkle {
-    from { opacity: .2; transform: scale(.7); }
-    to { opacity: 1; transform: scale(1.4); }
+    from {
+        opacity: .2;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
 }
 
 /* 流星 */
 
 .shooting-star {
     position: fixed;
+    top: 15%;
+    right: 5%;
     width: 100px;
     height: 2px;
     background: linear-gradient(90deg, transparent, white);
     transform: rotate(-35deg);
     opacity: 0;
     pointer-events: none;
-    animation: shooting 3s linear infinite;
+    animation: shooting 4s linear infinite;
 }
 
 @keyframes shooting {
@@ -64,12 +72,19 @@ body {
         transform: translate(0,0) rotate(-35deg);
         opacity: 0;
     }
-    10% { opacity: 1; }
+
+    10% {
+        opacity: 1;
+    }
+
     35% {
         transform: translate(-500px,350px) rotate(-35deg);
         opacity: 0;
     }
-    100% { opacity: 0; }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* 主区域 */
@@ -95,14 +110,19 @@ h1 {
 }
 
 @keyframes titleGlow {
-    from { filter: drop-shadow(0 0 5px #ff7898); }
-    to { filter: drop-shadow(0 0 22px #ffd770); }
+    from {
+        filter: drop-shadow(0 0 5px #ff7898);
+    }
+
+    to {
+        filter: drop-shadow(0 0 22px #ffd770);
+    }
 }
 
 .subtitle {
     font-size: 1.15rem;
     opacity: .85;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 /* 蛋糕 */
@@ -111,7 +131,7 @@ h1 {
     position: relative;
     width: 150px;
     height: 110px;
-    margin: 15px auto 30px;
+    margin: 15px auto 25px;
 }
 
 .cake-bottom {
@@ -164,13 +184,18 @@ h1 {
     transform: rotate(-45deg);
     left: 68px;
     bottom: 108px;
-    animation: flame 0.6s infinite alternate;
+    animation: flame .6s infinite alternate;
     box-shadow: 0 0 15px #ffd34d;
 }
 
 @keyframes flame {
-    from { transform: rotate(-45deg) scale(.9); }
-    to { transform: rotate(-45deg) scale(1.15); }
+    from {
+        transform: rotate(-45deg) scale(.9);
+    }
+
+    to {
+        transform: rotate(-45deg) scale(1.15);
+    }
 }
 
 /* 礼物 */
@@ -180,7 +205,7 @@ h1 {
     height: 70px;
     background: linear-gradient(135deg,#ff7199,#ff4f82);
     position: relative;
-    margin: 10px auto 25px;
+    margin: 10px auto 18px;
     cursor: pointer;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(255,80,130,.35);
@@ -252,6 +277,7 @@ button:active {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -316,7 +342,7 @@ button:active {
     }
 }
 
-/* 最终弹窗 */
+/* 最终生日信 */
 
 .final {
     position: fixed;
@@ -331,7 +357,7 @@ button:active {
 }
 
 .card {
-    max-width: 380px;
+    width: min(380px, 90vw);
     padding: 35px 25px;
     border-radius: 25px;
     background: rgba(255,255,255,.1);
@@ -342,12 +368,18 @@ button:active {
 
 .card h2 {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .card p {
     line-height: 2;
-    opacity: .9;
+    font-size: 1.05rem;
+}
+
+.from {
+    margin-top: 22px;
+    opacity: .75;
+    font-size: .95rem;
 }
 
 @keyframes cardIn {
@@ -355,6 +387,7 @@ button:active {
         transform: scale(.7);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -365,25 +398,42 @@ button:active {
 
 <body>
 
+<!-- 星空 -->
+
 <div class="stars" id="stars"></div>
 
 <div class="shooting-star"></div>
 
+
+<!-- 主页面 -->
+
 <div class="container">
 
-    <h1>🎂 生日快乐！</h1>
+    <h1>🎂 妈妈生日快乐！</h1>
 
     <div class="subtitle">
         今天的主角，就是你 ✨
     </div>
 
+
+    <!-- 蛋糕 -->
+
     <div class="cake">
+
         <div class="cake-bottom"></div>
+
         <div class="cake-top"></div>
+
         <div class="cream"></div>
+
         <div class="candle"></div>
+
         <div class="flame"></div>
+
     </div>
+
+
+    <!-- 礼物 -->
 
     <div class="gift" id="gift"></div>
 
@@ -391,33 +441,46 @@ button:active {
         ↑ 点一下这个神秘礼物 ↑
     </div>
 
+
     <button id="start">
         🎁 开启生日惊喜
     </button>
 
+
     <div class="message" id="message">
+
         愿新的一岁<br>
-        有更多开心的事情发生<br>
-        有喜欢的人，也有喜欢的生活<br>
-        每一天都值得期待 ✨
+        吃好睡好，天天开心<br>
+        少操点心，多出去玩 ✨
+
     </div>
 
 </div>
+
+
+<!-- 最后的生日信 -->
 
 <div class="final" id="final">
 
     <div class="card">
 
-        <h2>💌 给你的生日信</h2>
+        <h2>💌 给妈妈的生日信</h2>
 
         <p>
-            生日快乐呀！🎂<br><br>
-            愿你这一岁，<br>
-            所遇皆是温柔，所行皆有收获。<br><br>
-            愿你永远拥有<br>
-            对生活的好奇和期待。<br><br>
-            ✨ 生日快乐，天天开心 ✨
+            经研究发现：<br>
+            今天出生的人，<br>
+            普遍漂亮、聪明、运气好。<br><br>
+
+            经进一步研究发现：<br>
+
+            <strong>我妈尤其明显。🥸</strong><br><br>
+
+            —— 本研究绝对权威。😈
         </p >
+
+        <div class="from">
+            From：miaomiao
+        </div>
 
         <br>
 
@@ -429,9 +492,12 @@ button:active {
 
 </div>
 
+
 <script>
 
-/* 星空 */
+/* =========================
+   星空
+========================= */
 
 const stars = document.getElementById("stars");
 
@@ -442,6 +508,7 @@ for(let i = 0; i < 100; i++){
     star.className = "star";
 
     star.style.left = Math.random() * 100 + "%";
+
     star.style.top = Math.random() * 100 + "%";
 
     star.style.animationDelay =
@@ -451,7 +518,9 @@ for(let i = 0; i < 100; i++){
 }
 
 
-/* 烟花 */
+/* =========================
+   烟花
+========================= */
 
 const colors = [
     "#ffd770",
@@ -461,60 +530,79 @@ const colors = [
     "#d99cff"
 ];
 
+
 function firework(x,y){
 
-    for(let i=0;i<70;i++){
+    for(let i = 0; i < 70; i++){
 
         const dot = document.createElement("div");
 
         dot.className = "firework";
 
         const color =
-            colors[Math.floor(Math.random()*colors.length)];
+            colors[Math.floor(Math.random() * colors.length)];
 
         dot.style.background = color;
+
         dot.style.color = color;
 
         dot.style.left = x + "px";
+
         dot.style.top = y + "px";
 
         document.body.appendChild(dot);
 
+
         const angle =
-            Math.random()*Math.PI*2;
+            Math.random() * Math.PI * 2;
 
         const speed =
-            2 + Math.random()*5;
+            2 + Math.random() * 5;
 
-        let px=x;
-        let py=y;
 
-        let vx=Math.cos(angle)*speed;
-        let vy=Math.sin(angle)*speed;
+        let px = x;
 
-        let opacity=1;
+        let py = y;
+
+        let vx = Math.cos(angle) * speed;
+
+        let vy = Math.sin(angle) * speed;
+
+        let opacity = 1;
+
 
         function animate(){
 
             px += vx;
+
             py += vy;
 
-            vy += .04;
+            vy += 0.04;
 
-            vx *= .99;
-            vy *= .99;
+            vx *= 0.99;
 
-            opacity -= .015;
+            vy *= 0.99;
 
-            dot.style.left=px+"px";
-            dot.style.top=py+"px";
-            dot.style.opacity=opacity;
+            opacity -= 0.015;
 
-            if(opacity>0){
+
+            dot.style.left = px + "px";
+
+            dot.style.top = py + "px";
+
+            dot.style.opacity = opacity;
+
+
+            if(opacity > 0){
+
                 requestAnimationFrame(animate);
+
             }else{
+
                 dot.remove();
+
             }
+
         }
 
         requestAnimationFrame(animate);
@@ -522,108 +610,166 @@ function firework(x,y){
 }
 
 
-/* 气球 */
+/* =========================
+   气球
+========================= */
 
 function balloon(){
 
-    const b=document.createElement("div");
+    const b = document.createElement("div");
 
-    b.className="balloon";
+    b.className = "balloon";
 
-    b.style.left=Math.random()*100+"%";
+    b.style.left =
+        Math.random() * 100 + "%";
 
     b.style.background =
-        colors[Math.floor(Math.random()*colors.length)];
+        colors[Math.floor(Math.random() * colors.length)];
 
     b.style.animationDuration =
-        (7+Math.random()*6)+"s";
+        (7 + Math.random() * 6) + "s";
+
 
     document.body.appendChild(b);
 
-    setTimeout(()=>{
+
+    setTimeout(() => {
+
         b.remove();
-    },14000);
+
+    }, 14000);
 }
 
 
-/* 彩带 */
+/* =========================
+   彩带
+========================= */
 
 function confetti(){
 
-    for(let i=0;i<120;i++){
+    for(let i = 0; i < 120; i++){
 
-        const c=document.createElement("div");
+        const c = document.createElement("div");
 
-        c.className="confetti";
+        c.className = "confetti";
 
-        c.style.left=Math.random()*100+"%";
+        c.style.left =
+            Math.random() * 100 + "%";
 
         c.style.background =
-            colors[Math.floor(Math.random()*colors.length)];
+            colors[Math.floor(Math.random() * colors.length)];
 
         c.style.animationDuration =
-            (3+Math.random()*4)+"s";
+            (3 + Math.random() * 4) + "s";
 
         c.style.animationDelay =
-            Math.random()*1.5+"s";
+            Math.random() * 1.5 + "s";
+
 
         document.body.appendChild(c);
 
-        setTimeout(()=>{
+
+        setTimeout(() => {
+
             c.remove();
-        },7000);
+
+        }, 7000);
     }
 }
 
 
-/* 礼物 */
+/* =========================
+   生日惊喜
+========================= */
 
-const gift=document.getElementById("gift");
-const start=document.getElementById("start");
-const message=document.getElementById("message");
-const final=document.getElementById("final");
+const gift =
+    document.getElementById("gift");
+
+const start =
+    document.getElementById("start");
+
+const message =
+    document.getElementById("message");
+
+const final =
+    document.getElementById("final");
+
 
 function celebration(){
 
-    message.style.display="block";
+    message.style.display = "block";
+
+
+    start.textContent =
+        "🎉 生日快乐！";
+
+
+    /* 彩带 */
 
     confetti();
 
-    for(let i=0;i<15;i++){
 
-        setTimeout(()=>{
+    /* 烟花 */
+
+    for(let i = 0; i < 15; i++){
+
+        setTimeout(() => {
 
             firework(
-                window.innerWidth * (.1 + Math.random()*.8),
-                window.innerHeight * (.1 + Math.random()*.5)
+                window.innerWidth *
+                (.1 + Math.random() * .8),
+
+                window.innerHeight *
+                (.1 + Math.random() * .5)
             );
 
-        },i*250);
+        }, i * 250);
     }
 
-    for(let i=0;i<18;i++){
 
-        setTimeout(()=>{
+    /* 气球 */
+
+    for(let i = 0; i < 18; i++){
+
+        setTimeout(() => {
+
             balloon();
-        },i*300);
+
+        }, i * 300);
     }
 
-    setTimeout(()=>{
 
-        final.style.display="flex";
+    /* 最后打开生日信 */
 
-    },5500);
+    setTimeout(() => {
+
+        final.style.display = "flex";
+
+    }, 5500);
 }
 
 
-gift.addEventListener("click",celebration);
+/* 点击礼物 */
 
-start.addEventListener("click",celebration);
+gift.addEventListener(
+    "click",
+    celebration
+);
 
+
+/* 点击按钮 */
+
+start.addEventListener(
+    "click",
+    celebration
+);
+
+
+/* 关闭生日信 */
 
 function closeFinal(){
 
-    final.style.display="none";
+    final.style.display = "none";
 
 }
 
